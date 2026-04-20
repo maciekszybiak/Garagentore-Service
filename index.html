@@ -14,7 +14,31 @@
         .service-item { background: #f9f9f9; padding: 15px; border-left: 5px solid #e67e22; }
         footer { background: #1a252f; color: white; text-align: center; padding: 20px; margin-top: 40px; }
         @media (max-width: 600px) { .services { grid-template-columns: 1fr; } }
-    </style>
+   .whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #25d366;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+.whatsapp-float:hover { background-color: #128c7e; color: white; }
+.form-section { background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.1); margin-top: 20px; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; font-weight: bold; margin-bottom: 5px; }
+.form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+.tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+.tab-btn { padding: 10px 20px; cursor: pointer; border: none; background: #ddd; border-radius: 5px; }
+.tab-btn.active { background: #e67e22; color: white; }
+.form-container { display: none; }
+.form-container.active { display: block; } </style>
 </head>
 <body>
 
@@ -47,6 +71,96 @@
             <p>📍 Einsatzort: Berlin & Umgebung (50km Umkreis)</p>
             <p>🕒 Mo-Fr: 16:00 - 20:00 | Sa: Notdienst</p>
         </div>
+        <a href="https://wa.me/48609810676" class="whatsapp-float" target="_blank">
+    <span>WhatsApp Chat 💬</span>
+</a>
+
+<div class="container">
+    <div class="form-section">
+        <h3>Anfrage & Aufmaß-Termin</h3>
+        <p>Wählen Sie den Typ und füllen Sie das Formular aus:</p>
+        
+        <div class="tabs">
+            <button class="tab-btn active" onclick="openForm(event, 'gartentor')">Gartentor</button>
+            <button class="tab-btn" onclick="openForm(event, 'garagentor')">Garagentor</button>
+        </div>
+
+        <form action="https://formspree.io/f/TWOJ_ID_LUB_EMAIL" method="POST">
+            
+            <div class="form-group">
+                <label>Adresse (Einsatzort):</label>
+                <input type="text" name="Adresse" required placeholder="Str., PLZ, Stadt">
+            </div>
+            <div class="form-group">
+                <label>Telefonnummer:</label>
+                <input type="tel" name="Telefon" required placeholder="+49 123 456789">
+            </div>
+
+            <div id="gartentor" class="form-container active">
+                <input type="hidden" name="Typ" value="Gartentor">
+                <div class="form-group">
+                    <label>Art des Tores:</label>
+                    <select name="Tor_Art">
+                        <option value="Drehtor">Drehtor (rozwierna)</option>
+                        <option value="Schiebetor">Schiebetor (przesuwna)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Antriebsmarke:</label>
+                    <select name="Antrieb_Marke">
+                        <option value="Nice">Nice</option>
+                        <option value="Hormann">Hörmann</option>
+                        <option value="Krispol">Krispol</option>
+                        <option value="Andere">Andere / Weiß nicht</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="garagentor" class="form-container">
+                <input type="hidden" name="Typ" value="Garagentor">
+                <div class="form-group">
+                    <label>Öffnungsmaße (B x H in cm):</label>
+                    <input type="text" name="Masse" placeholder="np. 250 x 212">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div class="form-group">
+                        <label>Anschlag rechts (cm):</label>
+                        <input type="number" name="Anschlag_R">
+                    </div>
+                    <div class="form-group">
+                        <label>Anschlag links (cm):</label>
+                        <input type="number" name="Anschlag_L">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Sturzbedarf (nadproże w cm):</label>
+                    <input type="number" name="Sturz">
+                </div>
+                <div class="form-group">
+                    <label>Abgehängte Decke? (Sufit podwieszany):</label>
+                    <select name="Decke">
+                        <option value="Nein">Nein (Nie)</option>
+                        <option value="Ja">Ja (Tak)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Separater Eingang? (Osobne wejście):</label>
+                    <select name="Eingang">
+                        <option value="Nein">Nein</option>
+                        <option value="Ja">Ja</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Wunschtermin für Aufmaß (Termin pomiaru):</label>
+                <input type="date" name="Termin">
+            </div>
+
+            <button type="submit" class="btn" style="width: 100%; cursor: pointer;">Anfrage absenden</button>
+        </form>
+    </div>
+</div>
         <div>
             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d155456.2413151817!2d13.259838038756353!3d52.50651332468749!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a84e373f035901%3A0x42120465b5e3b70!2sBerlin!5e0!3m2!1spl!2sde!4v1711234567890!5m2!1spl!2sde" 
                 width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
@@ -81,6 +195,23 @@
 <footer>
     <p>&copy; 2026 Garagentor Service - Alle Rechte vorbehalten.</p>
 </footer>
-
+<script>
+function openForm(evt, formName) {
+    var i, formContainer, tabBtn;
+    formContainer = document.getElementsByClassName("form-container");
+    for (i = 0; i < formContainer.length; i++) {
+        formContainer[i].classList.remove("active");
+    }
+    tabBtn = document.getElementsByClassName("tab-btn");
+    for (i = 0; i < tabBtn.length; i++) {
+        tabBtn[i].classList.remove("active");
+    }
+    document.getElementById(formName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+    
+    // Zmienia pole 'Typ' w zależności od wybranej zakładki
+    document.querySelector('input[name="Typ"]').value = formName === 'gartentor' ? 'Gartentor' : 'Garagentor';
+}
+</script>
 </body>
 </html>
